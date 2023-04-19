@@ -10,12 +10,12 @@
 
 **Главная**
 
-![Main Mobile](screenshots/MainMobile.PNG)
+![Main Mobile](screenshots/MainMobile.png)
 
 **Удаление события**
 
-![Delete Mobile](screenshots/DeleteMobile.PNG)
+![Delete Mobile](screenshots/DeleteMobile.png)
 
 **Добавление события**
 
-![Add Mobile](screenshots/AddMobile.PNG)
+![Add Mobile](screenshots/AddMobile.png)
