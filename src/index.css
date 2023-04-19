@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --primary: rgb(235, 71, 61);
+  --secondary: rgb(235, 236, 253);
+  --secondaryActive: rgb(179, 184, 250);
+  --bg: rgb(246, 246, 246);
+  --border: rgb(235, 235, 235);
+  --gray: rgb(192, 192, 192);
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  cursor: pointer;
+}
+
+.button {
+  background: none;
+  border: none;
+  color: var(--primary);
+}
+
+.calendar {
+  width: 740px;
+  height: 100vh;
+  max-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.title>h1 {
+  font-weight: 200;
+  flex: 1;
+}
+
+.title>button {
+  background: none;
+  border: none;
+  color: var(--primary);
+}
+
+.main {
+  overflow-y: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cell {
+  width: 12.5%;
+}
+
+.datesSelector {
+  background: var(--bg);
+  padding-block: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  gap: 0.5rem;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.dates {
+  display: flex;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dateLabel {
+  font-size: small;
+}
+
+.dateNumber {
+  padding: 0.5rem;
+  clip-path: circle();
+}
+
+.dateActive {
+  background-color: var(--primary);
+  color: white;
+}
+
+.weekSelector {
+  display: flex;
+}
+
+.monthTitle {
+  width: 62.5%;
+  text-align: center;
+}
+
+.scrollview {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background-color: var(--border);
+  margin-block: 0.7rem;
+  border-top: 2px solid var(--border);
+}
+
+.hourRow {
+  display: flex;
+}
+
+.label {
+  margin-top: -0.7rem;
+  box-sizing: border-box;
+  padding-inline: 0.5rem;
+  text-align: end;
+  background-color: white;
+  color: var(--gray);
+  z-index: 1;
+}
+
+.hourCell {
+  border: 2px solid white;
+  background-color: white;
+  height: 2rem;
+  box-sizing: border-box;
+  width: calc(100%/7);
+}
+
+.eventsRow {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+}
+
+.event {
+  background-color: var(--secondary);
+  cursor: pointer;
+}
+
+.active {
+  background-color: var(--secondaryActive);
+}
+
+.footer {
+  background-color: var(--bg);
+  text-align: center;
+  padding: 1em;
+  display: flex;
+  border-top: 1px solid var(--border);
+}
+
+.footer>button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: large;
+}
