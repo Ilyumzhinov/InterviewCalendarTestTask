@@ -31,6 +31,7 @@ button {
 .calendar {
     width: 740px;
     height: 100vh;
+    max-height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
 }
