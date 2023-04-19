@@ -1,6 +1,8 @@
 import React from "react"
-import { CalendarContext } from ".."
+import { CalendarContext, theme } from ".."
 import { Range, addDays, compareDates } from "../utilities/utilities"
+import { ThemeProvider } from "styled-components"
+import { Button, Calendar, GridCell, DateCell, DateLabel, DateNumber, DatesSelectorStyled, EventsStyled, Flex, GlobalStyles, Header, Main, MonthTitle, ScrollViewStyled, TimeCell, EventsRow, HourCell, Footer } from "./StyledComponents"
 
 const DatesView = ({ date }) => {
     const currentDate = new Date('03/29/2021')
@@ -10,36 +12,42 @@ const DatesView = ({ date }) => {
     const dates = Range(7).map(i => addDays(date, i))
 
     return (
-        <div className="dates">
-            <div className="cell" />
+        <Flex>
+            <GridCell columns={8} />
             {
                 dates.map(date =>
-                    <div className="cell date" key={date}>
-                        <div className="dateLabel">{weekday[date.getDay()]}</div>
-                        <div className={date.getDate() === currentDate.getDate() ? "dateNumber dateActive" : "dateNumber"}>{date.getDate()}</div>
-                    </div>
+                    <DateCell columns={8} key={date}>
+                        <DateLabel>{weekday[date.getDay()]}</DateLabel>
+                        <DateNumber isActive={date.getDate() === currentDate.getDate()}>
+                            {date.getDate()}
+                        </DateNumber>
+                    </DateCell>
                 )
             }
-        </div>
+        </Flex>
     )
 }
 
 const DatesSelector = ({ startDate, month }) => {
     return (
-        <div className="datesSelector">
+        <DatesSelectorStyled>
             <DatesView date={startDate} />
 
-            <div className="weekSelector">
-                <div className="cell" />
-                <button className="button cell">
-                    <span className="material-symbols-outlined">arrow_back_ios</span>
-                </button>
-                <div className="monthTitle">{month}</div>
-                <button className="button cell">
-                    <span className="material-symbols-outlined">arrow_forward_ios</span>
-                </button>
-            </div>
-        </div>
+            <Flex>
+                <GridCell columns={8} />
+                <GridCell columns={8}>
+                    <Button>
+                        <span className="material-symbols-outlined">arrow_back_ios</span>
+                    </Button>
+                </GridCell>
+                <MonthTitle>{month}</MonthTitle>
+                <GridCell columns={8}>
+                    <Button>
+                        <span className="material-symbols-outlined">arrow_forward_ios</span>
+                    </Button>
+                </GridCell>
+            </Flex>
+        </DatesSelectorStyled>
     )
 }
 
@@ -65,29 +73,35 @@ const HourView = ({ hour, events }) => {
     }
 
     return (
-        <div className="hourRow">
-            <div className="label cell">{label}</div>
-            <div className="eventsRow">
+        <Flex>
+            <TimeCell columns={8}>{label}</TimeCell>
+            <EventsRow>
                 {dates.map(date =>
-                    <div
+                    <HourCell
                         key={date}
-                        className={selectedEvent !== undefined && compareDates(date, selectedEvent.date) ? "hourCell event active" : checkDate(date) ? "hourCell event" : "hourCell"}
+                        columns={7}
+                        isEvent={checkDate(date)}
+                        isSelected={selectedEvent !== undefined && compareDates(date, selectedEvent.date)}
                         onClick={() => handleClick(date)}
                     />
                 )}
-            </div>
-        </div>
+            </EventsRow>
+        </Flex>
     )
 }
 
 const DayView = ({ events }) => {
     const hours = Range(24).toArray()
     return (
-        <div className="events">
+        <EventsStyled>
             {hours.map(hour =>
-                <HourView hour={hour} key={hour} events={events.filter(event => event.date.getHours() === hour)} />
+                <HourView
+                    hour={hour}
+                    events={events.filter(event => event.date.getHours() === hour)}
+                    key={hour}
+                />
             )}
-        </div>
+        </EventsStyled>
     )
 }
 
@@ -129,25 +143,28 @@ export const CalendarView = () => {
 
     return (
         <CalendarContext.Provider value={{ events, selectedEvent, setSelectedEvent, startDate }}>
-            <div className="calendar">
-                <header className="title">
-                    <h1>Interview Calendar</h1>
-                    <button onClick={handleAdd}>
-                        <span className="material-symbols-outlined">add</span>
-                    </button>
-                </header >
-                <main className="main">
-                    <DatesSelector startDate={startDate} month={month} />
-                    <div className="scrollview">
-                        <DayView events={events} />
-                    </div>
-                </main >
-                <footer className="footer">
-                    <button>Today</button>
-                    <div style={{ flex: 1 }} />
-                    {selectedEvent !== undefined && <button onClick={handleDelete}>Delete</button>}
-                </footer>
-            </div >
+            <ThemeProvider theme={theme}>
+                <GlobalStyles />
+                <Calendar>
+                    <Header>
+                        <h1>Interview Calendar</h1>
+                        <Button onClick={handleAdd}>
+                            <span className="material-symbols-outlined">add</span>
+                        </Button>
+                    </Header >
+                    <Main>
+                        <DatesSelector startDate={startDate} month={month} />
+                        <ScrollViewStyled>
+                            <DayView events={events} />
+                        </ScrollViewStyled>
+                    </Main>
+                    <Footer>
+                        <Button>Today</Button>
+                        <div style={{ flex: 1 }} />
+                        {selectedEvent !== undefined && <Button onClick={handleDelete}>Delete</Button>}
+                    </Footer>
+                </Calendar>
+            </ThemeProvider>
         </CalendarContext.Provider>
     )
 }
