@@ -2,7 +2,7 @@
 
 Статичная страница приложения календаря, сделанная на React. Поддерживает добавление и удаление событий.
 
-Стек: JavaScript, React v18, create-react-app, styled-components.
+Стек: TypeScript, React v18, create-react-app, styled-components.
 
 Попробовать в браузере: [ilyumzhinov.github.io/InterviewCalendarTestTask](https://ilyumzhinov.github.io/InterviewCalendarTestTask/)
 

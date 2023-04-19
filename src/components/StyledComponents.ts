@@ -1,6 +1,9 @@
 import styled, { createGlobalStyle, css } from "styled-components";
 
 
+// NOTE: Содержит styled components
+
+
 // MARK: Global
 export const GlobalStyles = createGlobalStyle`
     body {
@@ -40,30 +43,24 @@ export const Button = styled.button`
     font-size: large;
 `
 
-export const GridCell = styled.div`
+export const GridCell = styled.div<{ columns: number }>`
     width: calc(100% / ${({ columns }) => columns});
 `
 
 
 // MARK: Header
-export const Header = styled.header`
+export const HeaderStyled = styled.header`
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+`
+
+export const NavBar = styled.div`
     display: flex;
     padding: 0.5rem;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
     h1 {
         font-weight: 200;
         flex: 1;
     }
-`
-
-
-// MARK: Main
-export const Main = styled.main`
-    overflow-y: hidden;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
 `
 
 // Dates selector
@@ -83,7 +80,7 @@ export const DateLabel = styled.div`
     font-size: small;
 `
 
-export const DateNumber = styled.div`
+export const DateNumber = styled.div<{ isActive: boolean }>`
     padding: 0.5rem;
     clip-path: circle();
 
@@ -98,12 +95,16 @@ export const MonthTitle = styled.div`
     text-align: center;
 `
 
-// MARK: Events view
-export const ScrollViewStyled = styled.div`
+
+// MARK: Main
+export const Main = styled.main`
+    flex: 1;
     height: 100%;
     overflow-y: auto;
 `
 
+
+// MARK: Events view
 export const EventsStyled = styled.div`
     display: flex;
     flex-direction: column;
@@ -129,7 +130,7 @@ export const EventsRow = styled.div`
     flex: 1;
 `
 
-export const HourCell = styled(GridCell)`
+export const HourCell = styled(GridCell) <{ isEvent: boolean, isSelected: boolean }>`
     border: 2px solid white;
     background-color: white;
     height: 2rem;
@@ -147,7 +148,7 @@ export const HourCell = styled(GridCell)`
 
 
 // MARK: Footer
-export const Footer = styled.div`
+export const FooterStyled = styled.div`
     background-color: ${({ theme }) => theme.colors.bg}; 
     text-align: center;
     padding: 1em;
